@@ -1,203 +1,600 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Futuros Ingenieros de Sistemas e Informática</title>
-  <meta name="description" content="Presentación personal de cinco estudiantes de Ingeniería de Sistemas e Informática. Portafolio y contacto." />
-  <meta name="theme-color" content="#0a0a0a" />
-  <style>
-    :root{
-      --bg:#0a0a0a;
-      --card:#101314;
-      --ink:#e6f6f0;
-      --muted:#b7cdc5;
-      --brand:#10b981;
-      --shadow: 0 10px 25px rgba(0,0,0,.45);
-      --radius: 18px;
-      --maxw: 1200px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; background:
-        radial-gradient(1200px 600px at 80% -10%, rgba(16,185,129,.18), transparent 60%),
-        radial-gradient(1200px 600px at -10% 100%, rgba(16,185,129,.10), transparent 60%),
-        var(--bg);
-      color:var(--ink); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-    }
-    .nav{position:sticky; top:0; background:rgba(10,10,10,.9); padding:12px 20px; display:flex; gap:20px; z-index:10; backdrop-filter: blur(8px); border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav a{color:var(--ink); text-decoration:none; opacity:.85}
-    .nav a:hover{opacity:1}
-    header{padding:64px 20px; text-align:center}
-    h1{font-size:clamp(28px, 2.2vw + 18px, 44px); margin:0 0 10px}
-    .tagline{color:var(--muted)}
-    .grid{max-width:var(--maxw); margin:30px auto; display:grid; gap:22px; padding:0 20px}
-    @media(min-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{background:var(--card); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); transition:.25s; border:1px solid rgba(255,255,255,.06)}
-    .card:hover{transform:translateY(-4px); border-color: rgba(16,185,129,.35)}
-    .avatar{width:92px; height:92px; border-radius:50%; object-fit:cover; border:2px solid var(--brand); background:#0f1a17}
-    .card header{display:flex; align-items:center; gap:16px; margin-bottom:12px}
-    .name{margin:0; font-size:20px}
-    .role{margin:0; color:var(--muted); font-size:14px}
-    .desc{margin:10px 0 16px; color:#d8eee6}
-    .skills{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px}
-    .chip{padding:6px 10px; border-radius:999px; background:#0d1211; font-size:13px; border:1px solid rgba(255,255,255,.1)}
-    .actions{display:flex; gap:10px; flex-wrap:wrap}
-    .btn{padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.1); text-decoration:none; color:var(--ink); font-weight:600}
-    .btn:hover{border-color:var(--brand); box-shadow:0 0 0 3px rgba(16,185,129,.25) inset}
-    .btn.primary{background:var(--brand); color:#06110c}
-    section.wrap{max-width:var(--maxw); margin:auto; padding:0 20px 40px}
-    footer{padding:30px; color:var(--muted); text-align:center; font-size:14px; border-top:1px solid rgba(255,255,255,.06)}
-    :focus-visible{outline:3px solid var(--brand); outline-offset:2px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conoce a Los Orcalitos - Proyecto Diseño de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados y animaciones */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #021B79, #0575E6, #00A2E2);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            overflow-x: hidden;
+            color: #ffffff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .font-fredoka {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        /* --- Animación de Tarjetas --- */
+        .card-container {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .card-container:hover .card-inner,
+        .card-container:focus .card-inner,
+        .card-container:focus-within .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem; /* 24px */
+        }
+        
+        .card-front img {
+            width: 96px; /* w-24 */
+            height: 96px; /* h-24 */
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Animación de Burbujas de fondo --- */
+        .bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -150px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+        .bubble:nth-child(1) { left: 10%; animation-duration: 12s; width: 20px; height: 20px; }
+        .bubble:nth-child(2) { left: 20%; animation-duration: 15s; animation-delay: 2s; width: 35px; height: 35px; }
+        .bubble:nth-child(3) { left: 35%; animation-duration: 20s; animation-delay: 4s; }
+        .bubble:nth-child(4) { left: 50%; animation-duration: 18s; width: 25px; height: 25px; }
+        .bubble:nth-child(5) { left: 65%; animation-duration: 13s; animation-delay: 1s; }
+        .bubble:nth-child(6) { left: 80%; animation-duration: 16s; animation-delay: 3s; width: 30px; height: 30px; }
+        .bubble:nth-child(7) { left: 90%; animation-duration: 19s; animation-delay: 5s; }
+
+        @keyframes rise {
+            0% { transform: translateY(0) translateX(0); opacity: 1; }
+            50% { transform: translateX(20px); }
+            100% { transform: translateY(-1080px) translateX(-20px); opacity: 0; }
+        }
+        
+        .title-animation {
+            animation: text-pop-up 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes text-pop-up {
+          0% { transform: translateY(20px); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .content-section {
+            background-color: rgba(2, 27, 121, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
-<body>
-  <nav class="nav" aria-label="Principal">
-    <a href="#inicio">Inicio</a>
-    <a href="#sobre">Sobre Nosotros</a>
-    <a href="#habilidades">Habilidades</a>
-    <a href="#portafolio">Portafolio</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
+<body class="min-h-screen w-full relative">
+    <!-- Contenedor de burbujas -->
+    <div class="bubbles">
+        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    </div>
 
-  <header id="inicio">
-    <h1>Futuros Ingenieros de Sistemas e Informática</h1>
-    <p class="tagline">“La tecnología es el puente entre la imaginación y la realidad”.</p>
-  </header>
+    <!-- Contenido principal -->
+    <div class="relative z-10 container mx-auto px-4 py-12 md:py-20">
+        <header class="text-center mb-16">
+            <h1 class="font-fredoka text-5xl md:text-7xl font-bold tracking-wider text-white title-animation">
+                <span class="text-cyan-300">Los</span> Orcalitos
+            </h1>
+            <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto text-gray-200 title-animation" style="animation-delay: 0.3s;">
+                Una inmersión profunda en el Diseño de Software
+            </p>
+        </header>
 
-  <section id="sobre" class="wrap">
-    <h2>Sobre Nosotros</h2>
-    <p>Somos cinco estudiantes de Ingeniería de Sistemas e Informática comprometidos con la innovación, el aprendizaje continuo y el desarrollo de proyectos con impacto positivo.</p>
-  </section>
+        <main>
+            <!-- Sección de Introducción -->
+            <section class="content-section">
+                <h2 class="font-fredoka text-3xl text-cyan-300 mb-4">Introducción</h2>
+                <p class="text-gray-200 leading-relaxed">
+                    Bienvenidos a la presentación de "Los Orcalitos". Somos un equipo de estudiantes de la carrera de Ingeniería de Sistemas, embarcados en la travesía del curso de Diseño de Software. Este proyecto representa nuestra primera inmersión en la aplicación de metodologías ágiles y patrones de diseño para la conceptualización de una solución tecnológica. A través de esta página, no solo buscamos presentar a los integrantes de este equipo, sino también reflejar nuestra filosofía de trabajo: una combinación de creatividad, colaboración y una sólida base técnica para navegar las complejas corrientes del desarrollo de software [1]. Nuestro objetivo es demostrar cómo la sinergia de un equipo diverso puede transformar una idea inicial en un prototipo bien estructurado y funcional.
+                </p>
+            </section>
+            
+            <!-- Título de la sección de equipo -->
+            <h2 class="font-fredoka text-4xl text-center mt-16 mb-12 text-white">Nuestra Tripulación</h2>
 
-  <section aria-label="Estudiantes" class="grid">
-    <!-- Estudiante 1 -->
-    <article class="card">
-      <header>
-        <img class="avatar" src="img/roque-quispe-adriana.jpg" alt="Foto de Roque Quispe Adriana" />
-        <div>
-          <h3 class="name">Roque Quispe Adriana</h3>
-          <p class="role">Estudiante de Ingeniería de Sistemas e Informática</p>
-        </div>
-      </header>
-      <p class="desc">Apasionada por la programación en C++, Java y Python. Disfruto construir software eficiente y colaborativo.</p>
-      <div class="skills">
-        <span class="chip">Desarrollo de software</span>
-        <span class="chip">Resolución de problemas</span>
-        <span class="chip">Trabajo en equipo</span>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#portafolio">Ver portafolio</a>
-        <a class="btn" href="#contacto">Contactar</a>
-      </div>
-    </article>
+            <!-- Grid de Miembros del Equipo -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+                
+                <!-- Tarjeta de Mariano -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-cyan-500 to-blue-600 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/B6NrgXh2/Generated-Image-August-31-2025-7-27-PM.jpg" alt="Foto de Mariano" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Mariano</h3>
+                            <p class="font-semibold text-cyan-100 mt-1">El Capitán de Ideas</p>
+                            <span class="mt-4 inline-block bg-white text-blue-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Tocar el ukelele cósmico.</li>
+                                <li>Explorar arrecifes en videojuegos.</li>
+                                <li>Coleccionar mapas de mundos ficticios.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"Las mejores ideas se encuentran en las corrientes más inesperadas."</p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Estudiante 2 -->
-    <article class="card">
-      <header>
-        <img class="avatar" src="img/portilla-alanoca-efrain-emiliano.jpg" alt="Foto de Portilla Alanoca Efrain Emiliano" />
-        <div>
-          <h3 class="name">Portilla Alanoca Efrain Emiliano</h3>
-          <p class="role">Estudiante de Ingeniería de Sistemas e Informática</p>
-        </div>
-      </header>
-      <p class="desc">Interesado en Inteligencia Artificial, análisis de datos y bases de datos SQL.</p>
-      <div class="skills">
-        <span class="chip">Aprendizaje autónomo</span>
-        <span class="chip">Innovación</span>
-        <span class="chip">Investigación en IA</span>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#portafolio">Ver portafolio</a>
-        <a class="btn" href="#contacto">Contactar</a>
-      </div>
-    </article>
+                <!-- Tarjeta de Efraín -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-indigo-500 to-purple-600 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/5y2VdwHP/IMG-20250901-WA0045.jpg" alt="Foto de Efraín" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Efraín</h3>
+                            <p class="font-semibold text-indigo-100 mt-1">El Ingeniero de Mareas</p>
+                             <span class="mt-4 inline-block bg-white text-purple-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Construir barcos en botellas.</li>
+                                <li>Astrofotografía de nebulosas.</li>
+                                <li>Descifrar enigmas y acertijos.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"Para cada problema, hay una marea de soluciones."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta de Jairo -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-teal-500 to-green-600 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/Jnh6RKqB/IMG-20250901-WA0048.jpg" alt="Foto de Jairo" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Jairo</h3>
+                            <p class="font-semibold text-teal-100 mt-1">Guardián del Código</p>
+                            <span class="mt-4 inline-block bg-white text-green-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Buceo en cenotes cristalinos.</li>
+                                <li>Jardinería de suculentas exóticas.</li>
+                                <li>Escuchar podcasts sobre misterios.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"El código más limpio es como el agua más clara."</p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Estudiante 3 -->
-    <article class="card">
-      <header>
-        <img class="avatar" src="img/rodrigo-huarancca-ccori.jpg" alt="Foto de Rodrigo Huarancca Ccori" />
-        <div>
-          <h3 class="name">Rodrigo Huarancca Ccori</h3>
-          <p class="role">Estudiante de Ingeniería de Sistemas e Informática</p>
-        </div>
-      </header>
-      <p class="desc">Motivado en crear proyectos innovadores y liderar equipos hacia objetivos tecnológicos claros.</p>
-      <div class="skills">
-        <span class="chip">Diseño de sistemas</span>
-        <span class="chip">Liderazgo</span>
-        <span class="chip">Gestión de proyectos</span>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#portafolio">Ver portafolio</a>
-        <a class="btn" href="#contacto">Contactar</a>
-      </div>
-    </article>
+                <!-- Tarjeta de Adriana -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-orange-400 to-red-500 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/4Ys0vgV8/IMG-20250901-WA0044.jpg" alt="Foto de Adriana" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Adriana</h3>
+                            <p class="font-semibold text-orange-100 mt-1">La Artista de Corales</p>
+                            <span class="mt-4 inline-block bg-white text-orange-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Pintura con acuarelas marinas.</li>
+                                <li>Senderismo en busca de cascadas.</li>
+                                <li>Voluntaria en refugios de animales.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"La creatividad es la marea que da color al mundo."</p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Estudiante 4 -->
-    <article class="card">
-      <header>
-        <img class="avatar" src="img/yosahandy-guizado-luque.jpg" alt="Foto de Yosahandy Guizado Luque" />
-        <div>
-          <h3 class="name">Yosahandy Guizado Luque</h3>
-          <p class="role">Estudiante de Ingeniería de Sistemas e Informática</p>
-        </div>
-      </header>
-      <p class="desc">Explora la nube, microservicios y automatización para escalar soluciones con calidad.</p>
-      <div class="skills">
-        <span class="chip">Computación en la nube</span>
-        <span class="chip">Automatización</span>
-        <span class="chip">Buenas prácticas</span>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#portafolio">Ver portafolio</a>
-        <a class="btn" href="#contacto">Contactar</a>
-      </div>
-    </article>
+                <!-- Tarjeta de Yosahandy -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-blue-700 to-slate-800 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/3NVbSp20/IMG-20250901-WA0047.jpg" alt="Foto de Yosahandy" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Yosahandy</h3>
+                            <p class="font-semibold text-blue-100 mt-1">El Analista de Abismos</p>
+                            <span class="mt-4 inline-block bg-white text-blue-700 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Ajedrez estratégico.</li>
+                                <li>Hornear pan de masa madre.</li>
+                                <li>Cine de ciencia ficción de los 80.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"En la profundidad de los datos se esconde la verdad."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Estudiante 5 -->
-    <article class="card">
-      <header>
-        <img class="avatar" src="img/mariano-laura-paz.jpg" alt="Foto de Mariano Laura Paz" />
-        <div>
-          <h3 class="name">Mariano Laura Paz</h3>
-          <p class="role">Estudiante de Ingeniería de Sistemas e Informática</p>
-        </div>
-      </header>
-      <p class="desc">Apasionado por la seguridad informática, la observabilidad y la mejora continua.</p>
-      <div class="skills">
-        <span class="chip">Ciberseguridad</span>
-        <span class="chip">Monitoreo &amp; logs</span>
-        <span class="chip">Mejora continua</span>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#portafolio">Ver portafolio</a>
-        <a class="btn" href="#contacto">Contactar</a>
-      </div>
-    </article>
-  </section>
-
-  <section id="habilidades" class="wrap">
-    <h2>Habilidades</h2>
-    <p>Desarrollo de software, Inteligencia Artificial, análisis de datos, diseño y arquitectura de sistemas, liderazgo técnico, gestión de proyectos, seguridad y nube.</p>
-  </section>
-
-  <section id="portafolio" class="wrap">
-    <h2>Portafolio</h2>
-    <p>Ejemplos de proyectos académicos y personales. Cada estudiante puede vincular aquí sus repositorios o demos.</p>
-  </section>
-
-  <section id="contacto" class="wrap">
-    <h2>Contacto</h2>
-    <p>¿Quieres colaborar con nosotros? Escríbenos: <a href="mailto:equipo.isi@example.com" style="color:var(--brand)">equipo.isi@example.com</a></p>
-  </section>
-
-  <footer>
-    <small>© <span id="year"></span> Futuros ISI</small>
-  </footer>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+            <!-- Sección Conclusiones y Sugerencias -->
+            <section class="content-section">
+                <h2 class="font-fredoka text-3xl text-cyan-300 mb-4">Conclusiones y Sugerencias</h2>
+                <div class="grid md:grid-cols-2 gap-8 text-gray-200">
+                    <div>
+                        <h3 class="font-fredoka text-xl text-white mb-2">Conclusiones</h3>
+                        <p class="mb-4">
+                            La realización de este proyecto ha sido un ejercicio fundamental para consolidar nuestros conocimientos en diseño de software. Hemos concluido que la selección de una metodología de trabajo adecuada desde el inicio es crucial para el éxito del proyecto. La comunicación constante y el uso de herramientas de control de versiones, como Git, demostraron ser pilares indispensables para mantener la cohesión y la integridad del código en un entorno colaborativo [2]. Además, la diversidad de habilidades dentro del equipo "Los Orcalitos" nos permitió abordar los problemas desde múltiples perspectivas, enriqueciendo la solución final.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="font-fredoka text-xl text-white mb-2">Sugerencias</h3>
+                        <p>
+                            Para futuros proyectos, sugerimos la implementación temprana de un pipeline de Integración Continua (CI/CD) para automatizar las pruebas y despliegues, reduciendo así la posibilidad de errores manuales. Recomendamos también dedicar un sprint inicial (Sprint 0) exclusivamente a la configuración del entorno de desarrollo y a la definición detallada de la arquitectura. Esto podría prevenir retrabajos y cuellos de botella en etapas posteriores. Finalmente, fomentar sesiones de "pair programming" puede ser una excelente estrategia para compartir conocimiento y mejorar la calidad del código de manera colectiva [3].
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección de Referencias -->
+            <section class="content-section">
+                <h2 class="font-fredoka text-3xl text-cyan-300 mb-4">Referencias (Formato IEEE)</h2>
+                <div class="text-gray-200 text-sm leading-relaxed">
+                    <p class="mb-2">[1] R. S. Pressman y B. R. Maxim, <em class="italic">Software Engineering: A Practitioner's Approach</em>, 9th ed. New York, NY, USA: McGraw-Hill Education, 2020.</p>
+                    <p class="mb-2">[2] M. Fowler, <em class="italic">Refactoring: Improving the Design of Existing Code</em>, 2nd ed. Boston, MA, USA: Addison-Wesley Professional, 2018.</p>
+                    <p class="mb-2">[3] E. Gamma, R. Helm, R. Johnson, y J. Vlissides, <em class="italic">Design Patterns: Elements of Reusable Object-Oriented Software</em>. Reading, MA, USA: Addison-Wesley, 1995.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-16">
+            <p class="text-sm text-gray-300">&copy; 2025 Los Orcalitos. Curso de Diseño de Software.</p>
+        </footer>
+    </div>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conoce a Los Orcalitos - Proyecto Diseño de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados y animaciones */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #021B79, #0575E6, #00A2E2);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            overflow-x: hidden;
+            color: #ffffff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .font-fredoka {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        /* --- Animación de Tarjetas --- */
+        .card-container {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .card-container:hover .card-inner,
+        .card-container:focus .card-inner,
+        .card-container:focus-within .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem; /* 24px */
+        }
+        
+        .card-front img {
+            width: 96px; /* w-24 */
+            height: 96px; /* h-24 */
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Animación de Burbujas de fondo --- */
+        .bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -150px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+        .bubble:nth-child(1) { left: 10%; animation-duration: 12s; width: 20px; height: 20px; }
+        .bubble:nth-child(2) { left: 20%; animation-duration: 15s; animation-delay: 2s; width: 35px; height: 35px; }
+        .bubble:nth-child(3) { left: 35%; animation-duration: 20s; animation-delay: 4s; }
+        .bubble:nth-child(4) { left: 50%; animation-duration: 18s; width: 25px; height: 25px; }
+        .bubble:nth-child(5) { left: 65%; animation-duration: 13s; animation-delay: 1s; }
+        .bubble:nth-child(6) { left: 80%; animation-duration: 16s; animation-delay: 3s; width: 30px; height: 30px; }
+        .bubble:nth-child(7) { left: 90%; animation-duration: 19s; animation-delay: 5s; }
+
+        @keyframes rise {
+            0% { transform: translateY(0) translateX(0); opacity: 1; }
+            50% { transform: translateX(20px); }
+            100% { transform: translateY(-1080px) translateX(-20px); opacity: 0; }
+        }
+        
+        .title-animation {
+            animation: text-pop-up 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes text-pop-up {
+          0% { transform: translateY(20px); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .content-section {
+            background-color: rgba(2, 27, 121, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen w-full relative">
+    <!-- Contenedor de burbujas -->
+    <div class="bubbles">
+        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="relative z-10 container mx-auto px-4 py-12 md:py-20">
+        <header class="text-center mb-16">
+            <h1 class="font-fredoka text-5xl md:text-7xl font-bold tracking-wider text-white title-animation">
+                <span class="text-cyan-300">Los</span> Orcalitos
+            </h1>
+            <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto text-gray-200 title-animation" style="animation-delay: 0.3s;">
+                Una inmersión profunda en el Diseño de Software
+            </p>
+        </header>
+
+        <main>
+            <!-- Sección de Introducción -->
+            <section class="content-section">
+                <h2 class="font-fredoka text-3xl text-cyan-300 mb-4">Introducción</h2>
+                <p class="text-gray-200 leading-relaxed">
+                    Bienvenidos a la presentación de "Los Orcalitos". Somos un equipo de estudiantes de la carrera de Ingeniería de Sistemas, embarcados en la travesía del curso de Diseño de Software. Este proyecto representa nuestra primera inmersión en la aplicación de metodologías ágiles y patrones de diseño para la conceptualización de una solución tecnológica. A través de esta página, no solo buscamos presentar a los integrantes de este equipo, sino también reflejar nuestra filosofía de trabajo: una combinación de creatividad, colaboración y una sólida base técnica para navegar las complejas corrientes del desarrollo de software [1]. Nuestro objetivo es demostrar cómo la sinergia de un equipo diverso puede transformar una idea inicial en un prototipo bien estructurado y funcional.
+                </p>
+            </section>
+            
+            <!-- Título de la sección de equipo -->
+            <h2 class="font-fredoka text-4xl text-center mt-16 mb-12 text-white">Nuestra Tripulación</h2>
+
+            <!-- Grid de Miembros del Equipo -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+                
+                <!-- Tarjeta de Mariano -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-cyan-500 to-blue-600 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/B6NrgXh2/Generated-Image-August-31-2025-7-27-PM.jpg" alt="Foto de Mariano" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Mariano</h3>
+                            <p class="font-semibold text-cyan-100 mt-1">El Capitán de Ideas</p>
+                            <span class="mt-4 inline-block bg-white text-blue-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Tocar el ukelele cósmico.</li>
+                                <li>Explorar arrecifes en videojuegos.</li>
+                                <li>Coleccionar mapas de mundos ficticios.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"Las mejores ideas se encuentran en las corrientes más inesperadas."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Efraín -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-indigo-500 to-purple-600 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/5y2VdwHP/IMG-20250901-WA0045.jpg" alt="Foto de Efraín" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Efraín</h3>
+                            <p class="font-semibold text-indigo-100 mt-1">El Ingeniero de Mareas</p>
+                             <span class="mt-4 inline-block bg-white text-purple-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Construir barcos en botellas.</li>
+                                <li>Astrofotografía de nebulosas.</li>
+                                <li>Descifrar enigmas y acertijos.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"Para cada problema, hay una marea de soluciones."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta de Jairo -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-teal-500 to-green-600 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/Jnh6RKqB/IMG-20250901-WA0048.jpg" alt="Foto de Jairo" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Jairo</h3>
+                            <p class="font-semibold text-teal-100 mt-1">Guardián del Código</p>
+                            <span class="mt-4 inline-block bg-white text-green-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Buceo en cenotes cristalinos.</li>
+                                <li>Jardinería de suculentas exóticas.</li>
+                                <li>Escuchar podcasts sobre misterios.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"El código más limpio es como el agua más clara."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Adriana -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-orange-400 to-red-500 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/4Ys0vgV8/IMG-20250901-WA0044.jpg" alt="Foto de Adriana" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Adriana</h3>
+                            <p class="font-semibold text-orange-100 mt-1">La Artista de Corales</p>
+                            <span class="mt-4 inline-block bg-white text-orange-500 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Pintura con acuarelas marinas.</li>
+                                <li>Senderismo en busca de cascadas.</li>
+                                <li>Voluntaria en refugios de animales.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"La creatividad es la marea que da color al mundo."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Yosahandy -->
+                <div class="card-container h-96 w-full group" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-blue-700 to-slate-800 shadow-xl flex flex-col justify-center items-center p-6 text-center">
+                            <img src="https://i.postimg.cc/3NVbSp20/IMG-20250901-WA0047.jpg" alt="Foto de Yosahandy" class="rounded-full border-4 border-white mb-4 shadow-lg">
+                            <h3 class="font-fredoka text-2xl font-bold">Yosahandy</h3>
+                            <p class="font-semibold text-blue-100 mt-1">El Analista de Abismos</p>
+                            <span class="mt-4 inline-block bg-white text-blue-700 text-xs font-bold px-3 py-1 rounded-full group-hover:bg-cyan-300 transition-colors duration-300">Ver más</span>
+                        </div>
+                        <div class="card-back p-6 text-left flex flex-col justify-center">
+                            <h4 class="font-fredoka text-lg font-bold text-cyan-300">Hobbies:</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>Ajedrez estratégico.</li>
+                                <li>Hornear pan de masa madre.</li>
+                                <li>Cine de ciencia ficción de los 80.</li>
+                            </ul>
+                            <p class="text-xs italic mt-4">"En la profundidad de los datos se esconde la verdad."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Conclusiones y Sugerencias -->
+            <section class="content-section">
+                <h2 class="font-fredoka text-3xl text-cyan-300 mb-4">Conclusiones y Sugerencias</h2>
+                <div class="grid md:grid-cols-2 gap-8 text-gray-200">
+                    <div>
+                        <h3 class="font-fredoka text-xl text-white mb-2">Conclusiones</h3>
+                        <p class="mb-4">
+                            La realización de este proyecto ha sido un ejercicio fundamental para consolidar nuestros conocimientos en diseño de software. Hemos concluido que la selección de una metodología de trabajo adecuada desde el inicio es crucial para el éxito del proyecto. La comunicación constante y el uso de herramientas de control de versiones, como Git, demostraron ser pilares indispensables para mantener la cohesión y la integridad del código en un entorno colaborativo [2]. Además, la diversidad de habilidades dentro del equipo "Los Orcalitos" nos permitió abordar los problemas desde múltiples perspectivas, enriqueciendo la solución final.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="font-fredoka text-xl text-white mb-2">Sugerencias</h3>
+                        <p>
+                            Para futuros proyectos, sugerimos la implementación temprana de un pipeline de Integración Continua (CI/CD) para automatizar las pruebas y despliegues, reduciendo así la posibilidad de errores manuales. Recomendamos también dedicar un sprint inicial (Sprint 0) exclusivamente a la configuración del entorno de desarrollo y a la definición detallada de la arquitectura. Esto podría prevenir retrabajos y cuellos de botella en etapas posteriores. Finalmente, fomentar sesiones de "pair programming" puede ser una excelente estrategia para compartir conocimiento y mejorar la calidad del código de manera colectiva [3].
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección de Referencias -->
+            <section class="content-section">
+                <h2 class="font-fredoka text-3xl text-cyan-300 mb-4">Referencias (Formato IEEE)</h2>
+                <div class="text-gray-200 text-sm leading-relaxed">
+                    <p class="mb-2">[1] R. S. Pressman y B. R. Maxim, <em class="italic">Software Engineering: A Practitioner's Approach</em>, 9th ed. New York, NY, USA: McGraw-Hill Education, 2020.</p>
+                    <p class="mb-2">[2] M. Fowler, <em class="italic">Refactoring: Improving the Design of Existing Code</em>, 2nd ed. Boston, MA, USA: Addison-Wesley Professional, 2018.</p>
+                    <p class="mb-2">[3] E. Gamma, R. Helm, R. Johnson, y J. Vlissides, <em class="italic">Design Patterns: Elements of Reusable Object-Oriented Software</em>. Reading, MA, USA: Addison-Wesley, 1995.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-16">
+            <p class="text-sm text-gray-300">&copy; 2025 Los Orcalitos. Curso de Diseño de Software.</p>
+        </footer>
+    </div>
+</body>
+</html>
+
